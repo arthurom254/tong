@@ -3,20 +3,21 @@ package main
 import (
 	"fmt"
 
-	tongforms "github.com/tong/tong_forms"
+	"github.com/tong/forms"
 )
 
 func main() {
-	textField := tongforms.TextField{
+	textField := forms.TextField{
 		FieldType:  "text",
 		FieldName:  "phone",
 		FieldValue: "0712345678",
 		FieldAttrs: map[string]any{
 			"class":       "bg-red-300 mx-auto",
 			"placeholder": "enter your phone",
+			"required":    true,
 		},
 	}
-
-	html := tongforms.Render(textField)
-	fmt.Println(html) // out: <input type="text" name="phone" placeholder ="enter your phone" class ="bg-red-300 mx-auto">
+	fmt.Println(textField)
+	// html := tong.Render(textField) {{}}
+	// fmt.Println(html) // out: <input type="text" name="phone" placeholder ="enter your phone" class ="bg-red-300 mx-auto">
 }

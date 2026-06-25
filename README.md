@@ -1,9 +1,9 @@
 What i expect the user to write at the end of the day
 ```go
 
-form := tongforms.Form{
-	Fields: []tongforms.Widget{
-		tongforms.TextField{
+form := form.Form{
+	Fields: []form.Widget{
+		form.TextField{
 			FieldName:  "phone",
 			FieldType:  "text",
 			FieldValue: "",
@@ -11,6 +11,6 @@ form := tongforms.Form{
 	},
 }
 
-html := tongforms.Render(form)
+html := tong.Render(form)
 
 ```
