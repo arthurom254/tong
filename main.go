@@ -9,17 +9,6 @@ import (
 )
 
 func main() {
-	textField := forms.TextField{
-		FieldType:  "text",
-		FieldName:  "phone",
-		FieldValue: "0712345678",
-		FieldAttrs: map[string]any{
-			"class":       "bg-red-300 mx-auto",
-			"placeholder": "enter your phone",
-			"required":    true,
-		},
-	}
-	fmt.Println(textField)
 	engine := django.New("./views", ".django")
 	app := fiber.New(fiber.Config{
 		Views: engine,
@@ -27,8 +16,22 @@ func main() {
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", fiber.Map{
-			"form": textField,
+			"form": forms.LoginForm,
 		})
+	})
+	app.Post("/", func(c *fiber.Ctx) error {
+		fmt.Println(string(c.Body()))
+
+		type Result struct {
+			Email string `json:"email"`
+		}
+		var p any
+		if err := c.BodyParser(p); err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println("P:-----", p)
+		return c.SendString(fmt.Sprint(forms.LoginForm.IsBound()))
 	})
 
 	app.Listen(":8001")

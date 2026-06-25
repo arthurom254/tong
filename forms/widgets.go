@@ -1,8 +1,6 @@
 package forms
 
 import (
-	"fmt"
-
 	"github.com/flosch/pongo2/v6"
 )
 
@@ -36,7 +34,7 @@ func (t TextField) render() string {
 		panic(err)
 	}
 	ctx := t.getContext()
-	fmt.Println(ctx)
+	// fmt.Println(ctx)
 	uhtml, err := tpl.Execute(pongo2.Context{
 		"widget": ctx,
 	})
@@ -49,6 +47,9 @@ func (t TextField) render() string {
 
 func (t TextField) String() string {
 	return t.render()
+}
+func (t TextField) Css_classes() string {
+	return "mx-auto"
 }
 
 func Render(w Widget) string {
