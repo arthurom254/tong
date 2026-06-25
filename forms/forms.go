@@ -9,7 +9,7 @@ type Form struct {
 }
 
 func (f Form) AsP() string {
-	return "<p></p>"
+	return "<p>Paragrap</p>"
 }
 
 func (f Form) AsDiv() string {

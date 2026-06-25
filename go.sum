@@ -4,6 +4,12 @@ github.com/flosch/pongo2/v6 v6.1.0 h1:A/NJbrQJJD2B2mbpw3DRFwBYG0xpCr3vwFlEr46y1H
 github.com/flosch/pongo2/v6 v6.1.0/go.mod h1:CuDpFm47R0uGGE7z13/tTlt1Y6zdxvr2RLT5LJhsHEU=
 github.com/gofiber/fiber/v2 v2.52.13 h1:TOKP64iqC9b5P49VrBW5tHhUOvDyrtJ0xePEfzJbCbk=
 github.com/gofiber/fiber/v2 v2.52.13/go.mod h1:YEcBbO/FB+5M1IZNBP9FO3J9281zgPAreiI1oqg8nDw=
+github.com/gofiber/template/django/v4 v4.0.6 h1:b8Kq2v1g5Dm/NEHyIn5g3dDvC0XicsPu6gogJ843CAE=
+github.com/gofiber/template/django/v4 v4.0.6/go.mod h1:aHutaGleqgxEqmbXutQ5QtktdwYF8oo3BXFfVARQumM=
+github.com/gofiber/template/v2 v2.1.0 h1:vrLY6uEW2HdioJm6J5FGUpYZuapVQhHciNz21XQjR/4=
+github.com/gofiber/template/v2 v2.1.0/go.mod h1:ohgpR/Ng90nJbK+IyNzrgR/XpnBNt862/oTF5G7SAmE=
+github.com/gofiber/utils/v2 v2.1.0 h1:WSu4COJhJw9moNfJu2nQvaM9AFvAQ/nZbigjhHqKgOQ=
+github.com/gofiber/utils/v2 v2.1.0/go.mod h1:DdOgEVwQTi8cou/AKWPqhXOR4fHGRVhA/rEWL3IXG7Q=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/klauspost/compress v1.17.9 h1:6KIumPrER1LHsvBVuDa0r5xaG0Es51mhhB9BQB2qeMA=
