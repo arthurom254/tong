@@ -9,7 +9,7 @@ import (
 type Form struct {
 	Fields []Widget
 	Errors *map[string]any
-	Data   *any
+	Data   any
 }
 
 func (f Form) getContext() pongo2.Context {
@@ -61,4 +61,16 @@ func (f *Form) Clean() error {
 		fmt.Println("Validated Form")
 	}
 	return nil
+}
+
+func (f Form) GetNames() []string {
+
+	fields := []string{}
+
+	for i := 0; i < len(f.Fields); i++ {
+		fields = append(fields, f.Fields[i].getName())
+	}
+
+	return fields
+
 }

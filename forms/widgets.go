@@ -7,6 +7,7 @@ import (
 type Widget interface {
 	getContext() map[string]any
 	render() string
+	getName() string
 }
 
 type TextField struct {
@@ -26,6 +27,10 @@ func (t TextField) getContext() map[string]any {
 	}
 
 	return ctx
+}
+
+func (t TextField) getName() string {
+	return t.FieldName
 }
 
 func (t TextField) render() string {
