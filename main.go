@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/arthurom254/tong/forms"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/django/v4"
-	"github.com/tong/forms"
 )
 
 func main() {

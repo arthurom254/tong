@@ -1,10 +1,14 @@
 package forms
 
+var passwordField = PasswordField{
+	Value:     "",
+	BaseField: BaseField{},
+}
 var LoginForm = Form{
 	Fields: []Widget{
 		TextField{
-			FieldType:  "email",
-			FieldName:  "email",
+			FieldType:  "label",
+			FieldName:  "month",
 			FieldValue: "",
 			FieldAttrs: map[string]any{
 				"class":       "bg-red-300 mx-auto",

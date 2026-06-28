@@ -22,7 +22,7 @@ func (f Form) getContext() pongo2.Context {
 }
 
 func (f Form) render() string {
-	tpl, err := pongo2.FromFile("forms/widgets/div.html")
+	tpl, err := pongo2.FromFile("forms/templates/div.html")
 	if err != nil {
 		panic(err)
 	}

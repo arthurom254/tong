@@ -1,4 +1,4 @@
-module github.com/tong
+module github.com/arthurom254/tong
 
 go 1.26.3
 

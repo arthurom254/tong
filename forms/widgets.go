@@ -34,7 +34,7 @@ func (t TextField) getName() string {
 }
 
 func (t TextField) render() string {
-	tpl, err := pongo2.FromFile("forms/widgets/input.html")
+	tpl, err := pongo2.FromFile("forms/templates/widgets/input.html")
 	if err != nil {
 		panic(err)
 	}
@@ -56,6 +56,10 @@ func (t TextField) String() string {
 func (t TextField) Css_classes() string {
 	return "mx-auto"
 }
+
+// type DateField struct {
+// 	TextField
+// }
 
 func Render(w Widget) string {
 	return w.render()
