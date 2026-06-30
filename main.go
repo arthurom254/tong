@@ -31,7 +31,7 @@ func main() {
 		}
 
 		fmt.Println("P:-----", p)
-		return c.SendString(fmt.Sprint(forms.LoginForm.IsBound()))
+		return c.SendString("OK")
 	})
 
 	app.Listen(":8001")

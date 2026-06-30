@@ -1,35 +1,126 @@
 package forms
 
+import (
+	"fmt"
+
+	"github.com/flosch/pongo2/v6"
+)
+
 type Field interface {
+	getContext() map[string]any
+	renderWidget() string
+	render() string
+	labelTag() string
+	getID() any
 	GetValue() any
 }
 
 type BaseField struct {
-	Name     string
-	Widget   Widget
-	Errors   []string
-	Required bool
-	Label    string
-	HelpText string
-	Disabled bool
-	Attrs    map[string]any `json:"attr"`
-}
-
-func (b BaseField) GetLabel() string {
-	if b.Label != "" {
-		return b.Label
-	}
-	if b.Name != "" {
-		return Humanize(b.Name)
-	}
-	return ""
 }
 
 // text
 
-// type TextField struct {
-// 	BaseField
-// }
+type CharField struct {
+	BaseField
+	Name        string
+	Type        string
+	Errors      []string
+	Required    bool
+	UseFieldset bool
+	Label       string
+	HelpText    string
+	Disabled    bool
+	Value       string
+	EmptyValue  string
+	Attrs       map[string]any `json:"attr"`
+}
+
+func (c CharField) AriaDescribedBy() string {
+	if value, ok := c.Attrs["aria_describedby"]; ok {
+		return fmt.Sprint(value)
+	} else {
+		return ""
+	}
+}
+
+func (c CharField) AsDiv() string {
+	return ""
+}
+func (c CharField) String() string {
+	return c.LabelTag() + c.renderWidget()
+}
+
+func (c CharField) renderWidget() string {
+	ctx := c.getContext()
+	name := "widgets/input.html"
+	tpl, err := renderTPL(name, ctx)
+	if err != nil {
+		panic(err)
+	}
+	return tpl
+}
+
+func (c CharField) ToGo() string {
+	if c.Value != "" {
+		value := string(c.Value)
+		return value
+	}
+	return c.EmptyValue
+}
+
+func (c CharField) getContext() pongo2.Context {
+
+	ctx := pongo2.Context{
+		"widget": map[string]any{
+			"type":             c.Type,
+			"name":             c.Name,
+			"value":            c.Value,
+			"attrs":            c.Attrs,
+			"use_fieldset":     c.UseFieldset,
+			"aria_describedby": c.AriaDescribedBy, // Call?
+			"errors":           c.Errors,
+			"label_tag":        c.LabelTag, // Call ?
+		},
+	}
+
+	return ctx
+}
+
+func (c CharField) getID() string {
+	var ID string
+	if value, ok := c.Attrs["id"]; ok {
+		ID = fmt.Sprint(value)
+	} else {
+		return "id_" + c.Name
+	}
+
+	return ID
+}
+
+func (c CharField) LabelTag() string {
+	var labelText string
+	if c.Label != "" {
+		labelText = c.Label
+	} else if c.Name != "" {
+		labelText = Humanize(c.Name)
+	}
+	ctx := pongo2.Context{
+		"use_tag": true,
+		"tag":     "label",
+		"label":   labelText + ": ",
+		"widget": map[string]any{
+			"attrs": map[string]any{
+				"for": c.getID(),
+			},
+		},
+	}
+	name := "label.html"
+	tpl, err := renderTPL(name, ctx)
+	if err != nil {
+		panic(err)
+	}
+	return tpl
+}
 
 // password
 

@@ -1,10 +1,14 @@
 package forms
 
-var passwordField = PasswordField{
-	Value:     "",
-	BaseField: BaseField{},
+var LoginForm = CharField{
+	Name:  "password",
+	Type:  "text",
+	Value: "0988",
+	Attrs: map[string]any{
+		"id": "password",
+	},
 }
-var LoginForm = Form{
+var _LoginForm = Form{
 	Fields: []Widget{
 		TextField{
 			FieldType:  "label",
