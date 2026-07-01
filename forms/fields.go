@@ -7,12 +7,12 @@ import (
 )
 
 type Field interface {
-	getContext() map[string]any
-	renderWidget() string
+	getContext() pongo2.Context
 	render() string
-	labelTag() string
-	getID() any
+	LabelTag() *pongo2.Value
+	getID() string
 	GetValue() any
+	CssClasses() string
 }
 
 type BaseField struct {
@@ -23,7 +23,6 @@ type BaseField struct {
 type CharField struct {
 	BaseField
 	Name        string
-	Type        string
 	Errors      []string
 	Required    bool
 	UseFieldset bool
@@ -33,6 +32,14 @@ type CharField struct {
 	Value       string
 	EmptyValue  string
 	Attrs       map[string]any `json:"attr"`
+}
+
+func (c CharField) CssClasses() string {
+	if value, ok := c.Attrs["class"]; ok {
+		return fmt.Sprint(value)
+	} else {
+		return ""
+	}
 }
 
 func (c CharField) AriaDescribedBy() string {
@@ -47,10 +54,10 @@ func (c CharField) AsDiv() string {
 	return ""
 }
 func (c CharField) String() string {
-	return c.LabelTag() + c.renderWidget()
+	return c.render()
 }
 
-func (c CharField) renderWidget() string {
+func (c CharField) render() string {
 	ctx := c.getContext()
 	name := "widgets/input.html"
 	tpl, err := renderTPL(name, ctx)
@@ -60,7 +67,7 @@ func (c CharField) renderWidget() string {
 	return tpl
 }
 
-func (c CharField) ToGo() string {
+func (c CharField) GetValue() any {
 	if c.Value != "" {
 		value := string(c.Value)
 		return value
@@ -72,7 +79,8 @@ func (c CharField) getContext() pongo2.Context {
 
 	ctx := pongo2.Context{
 		"widget": map[string]any{
-			"type":             c.Type,
+			"type":             "text",
+			"help_text":        c.HelpText,
 			"name":             c.Name,
 			"value":            c.Value,
 			"attrs":            c.Attrs,
@@ -97,7 +105,17 @@ func (c CharField) getID() string {
 	return ID
 }
 
-func (c CharField) LabelTag() string {
+func (c CharField) GetLabel() string {
+	var labelText string
+	if c.Label != "" {
+		labelText = c.Label
+	} else if c.Name != "" {
+		labelText = Humanize(c.Name)
+	}
+	return labelText
+}
+
+func (c CharField) LabelTag() *pongo2.Value {
 	var labelText string
 	if c.Label != "" {
 		labelText = c.Label
@@ -107,7 +125,7 @@ func (c CharField) LabelTag() string {
 	ctx := pongo2.Context{
 		"use_tag": true,
 		"tag":     "label",
-		"label":   labelText + ": ",
+		"label":   labelText + " ",
 		"widget": map[string]any{
 			"attrs": map[string]any{
 				"for": c.getID(),
@@ -119,7 +137,7 @@ func (c CharField) LabelTag() string {
 	if err != nil {
 		panic(err)
 	}
-	return tpl
+	return pongo2.AsSafeValue(tpl)
 }
 
 // password

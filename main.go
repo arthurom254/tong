@@ -16,7 +16,7 @@ func main() {
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", fiber.Map{
-			"form": forms.LoginForm,
+			"form": forms.RegForm,
 		})
 	})
 	app.Post("/", func(c *fiber.Ctx) error {
