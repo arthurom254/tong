@@ -15,16 +15,17 @@ func main() {
 	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
+		var Form_ forms.Form = forms.NewModelFrom(&User{}, "form-input px-2")
 		return c.Render("index", fiber.Map{
-			"form":  forms.RegForm,
-			"Form_": forms.Form_,
+			"form":  RegForm,
+			"Form_": Form_,
 		})
 	})
 	app.Post("/", func(c *fiber.Ctx) error {
-		fmt.Println(string(c.Body()))
+		var Form_ forms.Form = forms.NewModelFrom(&User{}, "form-input px-2")
 
-		form := forms.Form_
-		var user forms.User
+		form := Form_
+		var user User
 		if form.Bind(c, &user) {
 			fmt.Println(user.Email)
 			fmt.Println(user.FirstName, user.LastName)

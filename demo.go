@@ -1,14 +1,16 @@
-package forms
+package main
 
 import (
 	"time"
+
+	"github.com/arthurom254/tong/forms"
 )
 
 var inputClass = ""
 
-var RegForm = Form{
-	Fields: []Field{
-		CharField{
+var RegForm = forms.Form{
+	Fields: []forms.Field{
+		forms.CharField{
 			Name:     "first_name",
 			Label:    "First Name",
 			Required: true,
@@ -24,7 +26,7 @@ var RegForm = Form{
 				"maxlength":    100,
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "last_name",
 			Label:    "Last Name",
 			Required: true,
@@ -40,7 +42,7 @@ var RegForm = Form{
 				"maxlength":    100,
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "username",
 			Label:    "Username",
 			Required: true,
@@ -56,7 +58,7 @@ var RegForm = Form{
 				"maxlength":    150,
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "email",
 			Label:    "Email Address",
 			Required: true,
@@ -71,7 +73,7 @@ var RegForm = Form{
 				"autocomplete": "email",
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "phone",
 			Label:    "Phone Number",
 			HelpText: "Optional.",
@@ -85,7 +87,7 @@ var RegForm = Form{
 				"autocomplete": "tel",
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "password",
 			Label:    "Password",
 			Required: true,
@@ -101,7 +103,7 @@ var RegForm = Form{
 				"minlength":    8,
 			},
 		},
-		CharField{
+		forms.CharField{
 			Name:     "confirm_password",
 			Label:    "Confirm Password",
 			Required: true,
@@ -140,4 +142,4 @@ type User struct {
 	OrganizationID uint `json:"organization_id" form:"-"`
 }
 
-var Form_ Form = NewModelFrom(&User{}, "form-input px-2")
+// Moving this field to the view, to avoid data leak
