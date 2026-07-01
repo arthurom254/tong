@@ -127,3 +127,34 @@ fmt.Println(RegForm.AsTable())
 ```
 
 ![Out for AsP](forms/docs/out.png)
+
+
+## The model form using GO structs that you can use with any ORM
+```go
+
+type User struct {
+	FirstName string `json:"first_name" form:"label=First Name;placeholder=John;autocomplete=given-name;maxlength=100;required"`
+	LastName  string `json:"last_name" form:"label=Last Name;placeholder=Doe;autocomplete=family-name;maxlength=100;required"`
+	Username  string `json:"username" form:"placeholder=johndoe;autocomplete=username;maxlength=150;required"`
+	Email     string `json:"email" form:"widget=email;placeholder=john@example.com;autocomplete=email;required"`
+	Phone     string `json:"phone" form:"widget=tel;placeholder=+254712345678;autocomplete=tel"`
+	Password  string `json:"-" form:"type=password;placeholder=Password;minlength=8;required;exclude_prefill"`
+
+	Bio      string    `json:"bio" form:"widget=textarea;label=About You;help=Tell us a bit about yourself;maxlength=500"`
+	Website  string    `json:"website" form:"widget=url;placeholder=https://example.com"`
+	Birthday time.Time `json:"birthday" gorm:"type:date" form:"widget=date;label=Date of Birth"`
+
+	IsActive bool   `json:"is_active" form:"widget=checkbox;label=Active Account"`
+	Role     string `json:"role" gorm:"default:member" form:"widget=select;label=Role;required"`
+
+	AvatarURL string `json:"avatar_url" form:"-"`
+
+	OrganizationID uint `json:"organization_id" form:"-"`
+}
+
+var Form_ Form = NewModelFrom(&User{}, "form-input px-2")
+
+```
+
+
+

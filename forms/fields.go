@@ -22,6 +22,7 @@ type BaseField struct {
 
 type CharField struct {
 	BaseField
+	InputType   string
 	Name        string
 	Errors      []string
 	Required    bool
@@ -32,6 +33,14 @@ type CharField struct {
 	Value       string
 	EmptyValue  string
 	Attrs       map[string]any `json:"attr"`
+}
+
+func (c CharField) getInputType() string {
+	var inpType string = "text"
+	if c.InputType != "" {
+		inpType = c.InputType
+	}
+	return inpType
 }
 
 func (c CharField) CssClasses() string {
@@ -79,7 +88,7 @@ func (c CharField) getContext() pongo2.Context {
 
 	ctx := pongo2.Context{
 		"widget": map[string]any{
-			"type":             "text",
+			"type":             c.getInputType(),
 			"help_text":        c.HelpText,
 			"name":             c.Name,
 			"value":            c.Value,
@@ -138,139 +147,4 @@ func (c CharField) LabelTag() *pongo2.Value {
 		panic(err)
 	}
 	return pongo2.AsSafeValue(tpl)
-}
-
-// password
-
-type PasswordField struct {
-	BaseField
-	Value any `validators:"required"`
-}
-
-// email
-
-type EmailField struct {
-	BaseField
-}
-
-// number
-type NumberField struct {
-	BaseField
-}
-
-// tel
-type TelField struct {
-	BaseField
-}
-
-// url
-
-type URLField struct {
-	BaseField
-}
-
-// search
-type SearchField struct {
-	BaseField
-}
-
-// date
-
-type DateField struct {
-	BaseField
-}
-
-// time
-
-type TimeField struct {
-	BaseField
-}
-
-// datetime-local
-
-type DateTimeLocalField struct {
-	BaseField
-}
-
-// month
-
-type MonthField struct {
-	BaseField
-}
-
-// week
-
-type WeekField struct {
-	BaseField
-}
-
-// color
-
-type ColorField struct {
-	BaseField
-}
-
-// range
-
-type RangeField struct {
-	BaseField
-}
-
-// checkbox
-
-type CheckboxField struct {
-	BaseField
-}
-
-// radio
-
-type RadioField struct {
-	BaseField
-}
-
-// file
-
-type FileField struct {
-	BaseField
-}
-
-// hidden
-
-type HiddenField struct {
-	BaseField
-}
-
-// image
-type ImageField struct {
-	BaseField
-}
-
-// textarea
-type TextareaField struct {
-	BaseField
-}
-
-// select
-type SelectField struct {
-	BaseField
-}
-
-// option
-
-type OptionField struct {
-	BaseField
-}
-
-// optgroup
-type OptionGroupField struct {
-	BaseField
-}
-
-// datalist
-
-// progress
-// legend
-
-func Start(f Field) {
-
 }

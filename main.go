@@ -16,21 +16,21 @@ func main() {
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", fiber.Map{
-			"form": forms.RegForm,
+			"form":  forms.RegForm,
+			"Form_": forms.Form_,
 		})
 	})
 	app.Post("/", func(c *fiber.Ctx) error {
 		fmt.Println(string(c.Body()))
 
-		type Result struct {
-			Email string `json:"email"`
-		}
-		var p any
-		if err := c.BodyParser(p); err != nil {
-			fmt.Println(err)
+		form := forms.Form_
+		var user forms.User
+		if form.Bind(c, &user) {
+			fmt.Println(user.Email)
+			fmt.Println(user.FirstName, user.LastName)
+			return c.SendString("OK ")
 		}
 
-		fmt.Println("P:-----", p)
 		return c.SendString("OK")
 	})
 
