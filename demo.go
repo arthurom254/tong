@@ -143,3 +143,8 @@ type User struct {
 }
 
 // Moving this field to the view, to avoid data leak
+
+type Login struct {
+	Username string `json:"username" form:"widget=text;maxlength=5"`
+	Password string `json:"password" form:"widget=password;maxlength=5"`
+}
